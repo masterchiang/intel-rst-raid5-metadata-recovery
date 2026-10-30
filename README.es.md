@@ -82,6 +82,11 @@ del sector de metadatos al final del disco.
 | Reconnectar el disco desincronizado | **`Rebuild`** se inicia automáticamente |
 | Windows | Volumen de 24 004 676 026 368 bytes, **Healthy / OK**, montado, archivos legibles |
 
+<img src="docs/images/rst-rebuild-progress.jpg" alt="RST reconstruyendo el volumen DATABASE">
+
+*El mismo array después: los cuatro miembros de 7452 GB presentes, `DATABASE` de nuevo como RAID 5 de
+22 356 GB, **estado: reconstrucción 9 %**. La entrada fantasma `0 Bytes / Perdido` ya no está.*
+
 ## Advertencias
 
 1. **Si te equivocas es irreversible.** No hay copia de seguridad.

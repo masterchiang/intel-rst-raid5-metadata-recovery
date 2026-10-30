@@ -131,6 +131,11 @@ inside the metadata sector, at the very end of each disk. Not one byte in the da
 | After re-attaching the out-of-sync member | **`Rebuild`** started automatically |
 | Windows | `Intel Raid 5 Volume DATABASE`, 24 004 676 026 368 bytes, **Healthy / OK**, mounted, files open fine |
 
+<img src="docs/images/rst-rebuild-progress.jpg" alt="Intel RST rebuilding the DATABASE volume">
+
+*The same array in the RST GUI afterwards: four 7452 GB members present, `DATABASE` back as a
+RAID 5 volume of 22 356 GB, **status: rebuild 9%**. The `0 Bytes / Lost` phantom entry is gone.*
+
 The 3 disks that were patched kept on working through a full rebuild. The volume came back.
 
 ## Warnings before you touch anything

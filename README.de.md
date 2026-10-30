@@ -80,6 +80,11 @@ im Metadaten-Sektor am Plattenende.
 | Desynchronisierte Platte wieder angesteckt | **`Rebuild`** startet automatisch |
 | Windows | Volume mit 24 004 676 026 368 Bytes, **Healthy / OK**, eingebunden, Dateien lesbar |
 
+<img src="docs/images/rst-rebuild-progress.jpg" alt="RST baut das DATABASE-Volume neu auf">
+
+*Dasselbe Array danach: vier Mitglieder mit 7452 GB vorhanden, `DATABASE` wieder RAID 5 mit 22 356 GB,
+**Status: Neuaufbau 9 %**. Der Geistereintrag `0 Bytes / Verloren` ist verschwunden.*
+
 ## Warnungen
 
 1. **Bei Fehlern ist es irreversibel.** Es gibt kein Backup.

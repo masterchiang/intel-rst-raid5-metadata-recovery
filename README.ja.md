@@ -84,6 +84,11 @@ RAID5 で 1 個 -> Degraded ／ 2 個以上 -> Failed
 | 同期外れの 1 台を戻す | **`Rebuild`** が自動開始 |
 | Windows | 24 004 676 026 368 バイトのボリュームが **Healthy / OK**、マウント成功、ファイル正常 |
 
+<img src="docs/images/rst-rebuild-progress.jpg" alt="RST による DATABASE ボリュームの再構築">
+
+*修復後の同じ配列：7452 GB のメンバー 4 台が揃い、`DATABASE` は RAID 5 / 22 356 GB に復帰、
+**状態：再構築 9%**。`0 Bytes / 失われた` の幽霊エントリは消えています。*
+
 ## 警告
 
 1. **失敗すれば不可逆**。バックアップはありません。

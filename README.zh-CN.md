@@ -121,6 +121,11 @@ RAID5 失败 2 个及以上 -> Failed
 | 再把失步那块接回 | **`Rebuild`**，自动开始重建 |
 | 进 Windows | `Intel Raid 5 Volume DATABASE`，24 004 676 026 368 字节，**Healthy / OK**，成功挂载，文件正常打开 |
 
+<img src="docs/images/rst-rebuild-progress.jpg" alt="Intel RST 正在重建 DATABASE 卷">
+
+*恢复后的同一阵列：四块 7452 GB 成员全部在位，`DATABASE` 回到 RAID 5、22 356 GB，**状态：重建 9%**。
+那条 `0 Bytes / 丢失` 的幽灵记录已经消失。*
+
 被修过元数据的三块盘完整撑过了一次重建，卷回来了。
 
 ## 动手前的警告
