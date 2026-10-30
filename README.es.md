@@ -1,6 +1,19 @@
 # Intel RST / IMSM RAID 5: devolver al array un miembro degradado a `Non-RAID` (`Failed` → `Degraded` → `Rebuild`)
 
-[简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | **Español** | [Русский](README.ru.md)
+[简体中文](README.md) | [繁體中文](README.zh-TW.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | **Español** | [Português](README.pt-BR.md) | [Italiano](README.it.md) | [Polski](README.pl.md) | [Русский](README.ru.md)
+
+## De qué tipo de problema se trata
+
+Es un problema documentado y extendido de Intel RST, no un caso aislado.
+
+El artículo de soporte de Intel **000099952** describe cómo Intel RST pierde discos SATA en determinadas
+condiciones: el disco desaparece del sistema, el array se degrada o falla, y el disco no vuelve a unirse al
+reconectarlo. Afecta a cualquier máquina con Intel RST / VMD.
+<https://www.intel.com/content/www/us/en/support/articles/000099952/technologies.html>
+
+La enumeración de discos, la determinación del estado del array y la escritura de metadatos al arrancar las
+realiza el **OROM de RST integrado en la BIOS**, no el driver de Windows. Por eso una corrección efectiva solo
+puede llegar como actualización de BIOS del fabricante de la placa; actualizar el lado de Windows no lo sustituye.
 
 > Caso real y verificado: RAID 5 de Intel RST con 4 discos (volumen `DATABASE`, 24 TB).
 > El firmware marcó el volumen como **Failed** y uno de los discos quedó en **`Non-RAID`**.

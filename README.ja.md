@@ -1,6 +1,18 @@
 # Intel RST / IMSM RAID 5：`Non-RAID` に落ちたメンバーディスクを配列へ戻す（`Failed` → `Degraded` → `Rebuild`）
 
-[简体中文](README.md) | [English](README.en.md) | **日本語** | [Deutsch](README.de.md) | [Español](README.es.md) | [Русский](README.ru.md)
+[简体中文](README.md) | [繁體中文](README.zh-TW.md) | [English](README.en.md) | **日本語** | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt-BR.md) | [Italiano](README.it.md) | [Polski](README.pl.md) | [Русский](README.ru.md)
+
+## 問題の性質
+
+これは Intel RST の公開された一般的な問題であり、個別の事例ではありません。
+
+Intel のサポート記事 **000099952** は、Intel RST が特定条件下で SATA ディスクを失う問題を記載しています。
+ディスクがシステムから消え、アレイが劣化または失敗状態になり、再接続しても復帰しません。
+対象は Intel RST / VMD を使用するすべてのマシンです。
+<https://www.intel.com/content/www/us/en/support/articles/000099952/technologies.html>
+
+起動時のディスク列挙、アレイ状態の判定、メタデータの書き込みは **BIOS 内蔵の RST OROM** が行います。
+したがって有効な修正はマザーボードベンダーによる BIOS 更新であり、Windows 側のドライバ更新では代替できません。
 
 > 4 台構成 Intel RST RAID 5（ボリューム名 `DATABASE`、24 TB）の実例です。
 > ファームウェアがボリュームを **Failed** と判定し、1 台のメンバーが **`Non-RAID`** のままでした。

@@ -1,6 +1,20 @@
 # Intel RST / IMSM RAID 5: Ein auf `Non-RAID` zurückgefallenes Mitglied wieder in das Array bringen (`Failed` → `Degraded` → `Rebuild`)
 
-[简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md) | **Deutsch** | [Español](README.es.md) | [Русский](README.ru.md)
+[简体中文](README.md) | [繁體中文](README.zh-TW.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | **Deutsch** | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt-BR.md) | [Italiano](README.it.md) | [Polski](README.pl.md) | [Русский](README.ru.md)
+
+## Um welche Art von Problem es geht
+
+Dies ist ein dokumentiertes, verbreitetes Problem von Intel RST und kein Einzelfall.
+
+Der Intel-Supportartikel **000099952** beschreibt, dass Intel RST unter bestimmten Bedingungen
+SATA-Festplatten verliert: Die Platte verschwindet aus dem System, das Array wird degradiert oder fällt aus,
+und die Platte kehrt nach dem erneuten Anschließen nicht zurück. Betroffen sind alle Maschinen mit
+Intel RST / VMD.
+<https://www.intel.com/content/www/us/en/support/articles/000099952/technologies.html>
+
+Das Auflisten der Platten, die Bewertung des Array-Zustands und das Schreiben der Metadaten übernimmt beim
+Einschalten das **RST-OROM in der BIOS-Firmware**, nicht der Windows-Treiber. Eine wirksame Korrektur kann
+daher nur als BIOS-Update des Mainboard-Herstellers kommen; ein Treiberupdate unter Windows ersetzt das nicht.
 
 > Ein realer, verifizierter Fall: 4-Platten-Intel-RST-RAID-5 (Volume `DATABASE`, 24 TB).
 > Die Firmware hatte das Volume als **Failed** eingestuft, eine Platte blieb auf **`Non-RAID`**.

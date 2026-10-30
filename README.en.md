@@ -1,13 +1,44 @@
-# Report: recovering an Intel RST RAID5 array from `Failed` to accessible
+# Intel RST RAID5: recovering a member disk reported as `Non-RAID`
 
-[简体中文](README.md) | **English** | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Español](README.es.md) | [Русский](README.ru.md)
+[简体中文](README.md) | [繁體中文](README.zh-TW.md) | **English** | [日本語](README.ja.md) | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt-BR.md) | [Italiano](README.it.md) | [Polski](README.pl.md) | [Русский](README.ru.md)
 
-Period: 2026-10-30 to 2026-10-31
-Subject: Intel RST RAID5 made of four 8 TB HGST disks, volume name `DATABASE`, volume size 24 004 676 026 368 bytes
-Outcome: member `VLK5JGVY` rejoined the array, the volume went from `Failed` to `Degraded`, the rebuild completed, and the volume mounted normally in Windows
-Data handling: no format, no volume deletion, no initialisation; 0 bytes written in the data area
+## What kind of problem this is
 
-This document records the investigation, the conclusions and their basis, the operations performed, and the results.
+This is a documented, widespread Intel RST problem, not an isolated case.
+
+Intel support article **000099952** describes Intel RST losing SATA disks under specific conditions:
+the disk disappears from the system, the array degrades or fails, and the disk does not rejoin when it
+is connected again.
+<https://www.intel.com/content/www/us/en/support/articles/000099952/technologies.html>
+
+The affected population is every machine running Intel RST / VMD. The article points at RST versions,
+but note which code actually matters: the disks are enumerated, the array state is decided and the
+metadata is written at power-on by the **RST OROM inside the motherboard BIOS**, not by the Windows
+driver. A real fix therefore has to come from the motherboard vendor as a BIOS update; upgrading the
+Windows side cannot substitute for it. Most boards still ship a 19.x OROM.
+
+Underneath that known defect, one recoverable failure pattern keeps appearing:
+
+- the disk is physically healthy and its SMART data is clean
+- the other members of the array hold intact data
+- but the firmware has marked that disk as missing: the UI shows `Non-RAID`, or a phantom record of
+  0 bytes in state "Lost"
+- re-seating cables, changing ports, rebooting, flashing the BIOS and updating drivers all make no difference
+
+This document describes how to handle that case. Because it involves writing to the array metadata
+directly, read section 9 in full before touching anything.
+
+---
+
+The method is based on one real recovery, 2026-10-30 to 2026-10-31:
+
+| Item | Detail |
+|---|---|
+| Subject | Intel RST RAID5 of four 8 TB HGST disks, volume `DATABASE`, 24 004 676 026 368 bytes |
+| Starting state | volume `Failed`, member `VLK5JGVY` shown as `Non-RAID` |
+| Outcome | member rejoined, `Failed` → `Degraded` → rebuild → volume mounted normally |
+| Data area written | 0 bytes (no format, no volume deletion, no initialisation) |
+| Metadata written | 22 + 15 + 15 bytes |
 
 ---
 
@@ -499,18 +530,48 @@ The RST screen during the rebuild: four members present, volume back as RAID5, r
 
 ## 10. Reproducing the procedure
 
-### 10.1 Applicability
+### 10.1 Scope
 
-All of the following should hold:
+Classify the situation first. Only the first case uses this method.
+
+**Case 1: broken member record, data area intact**
+
+Criteria:
 
 - Intel RST RAID5 with 4 members
 - volume state `Failed`
-- exactly one member shown as `Non-RAID`, or a 0-byte disk record in state "Lost"
+- exactly one member shown as `Non-RAID`, or a 0-byte record in state "Lost"
 - that record's serial carries a `:0` suffix
-- the volume was not deleted, initialised, or "marked as normal"
+- no "mark as normal" was performed, and no rebuild was run onto the other members
 - the incident began with a cable, connector, power or case-move event
 
-A volume that has been deleted or re-initialised is outside the scope of this method.
+Handling: the method in this document, repairing the member record.
+
+**Case 2: the volume was deleted or re-created, but the data area was not overwritten**
+
+Deleting a volume in RST and creating a new one normally rewrites only the metadata; it does not zero the
+whole data area. "Repairing the member record" does not apply here, because the descriptor no longer
+exists — but as long as nothing has written to the data area, the data is still recoverable, by either of
+two routes:
+
+- rebuild a descriptor from the original parameters (member count and order, strip size, data start) and
+  write it, so the controller adopts the volume again;
+- or bypass the controller entirely and reassemble the volume offline by the stripe rules, then export
+  the files.
+
+Either route requires confirming first that the data area was not overwritten. The way to check is whether
+recognisable structures (filesystem headers, MFT records, fragments of file contents) can still be read
+from several places on the disks, and whether anything was written after the new volume was created.
+
+**Case 3: the data area was overwritten**
+
+This includes a full initialisation (RST's full initialisation writes zeros), a rebuild performed in the
+wrong direction (writing over the good disks), or writes made to the array after a rebuild. These are
+outside the scope of this document and need professional data recovery; even then, success is not certain.
+
+> Of the three criteria, the one that matters is **whether the data area was written to**, not whether the
+> volume object still exists. A missing volume object does not mean the data is gone; conversely, a volume
+> object that still exists after a rebuild wrote over the data area is worse off.
 
 ### 10.2 Steps
 

@@ -22,8 +22,20 @@ Answer all of these before touching anything:
 - [ ] You can read the members' raw sectors (a USB-SATA bridge is enough).
 - [ ] You accept that there is no backup and no undo.
 
-If the volume was re-initialised, or a rebuild was started onto a disk holding the only good copy,
-**stop**. You are in a different failure class and metadata editing will not fix it.
+If the volume was re-initialised, or a rebuild was started onto a disk holding the only good copy, this
+*member-record* repair is not the right tool — but that is not the same as "the data is gone". Classify
+the case first:
+
+| Case | What happened | What to do |
+|---|---|---|
+| 1 | member record is wrong, data area untouched | this document |
+| 2 | volume deleted or re-created, data area **not** overwritten | not this document. The data is still there: either rebuild a descriptor from the original parameters (member count and order, strip size, data start) and write it, or bypass the controller and reassemble the volume offline, then export the files |
+| 3 | data area overwritten (full initialisation, rebuild in the wrong direction, writes made after a rebuild) | outside the scope; professional recovery, and success is not guaranteed |
+
+The decisive question is **whether anything wrote to the data area**, not whether the volume object still
+exists. Check that before doing anything else: try to read recognisable structures (filesystem headers, MFT
+records, fragments of known files) from several places on the members. If they read back as plausible data,
+the data area is intact and case 2 is still recoverable.
 
 ## Phase 1 — Freeze everything (read-only)
 

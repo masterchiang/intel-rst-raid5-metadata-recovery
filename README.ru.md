@@ -1,6 +1,19 @@
 # Intel RST / IMSM RAID 5: возврат диска из `Non-RAID` в состав массива (`Failed` → `Degraded` → `Rebuild`)
 
-[简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Español](README.es.md) | **Русский**
+[简体中文](README.md) | [繁體中文](README.zh-TW.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt-BR.md) | [Italiano](README.it.md) | [Polski](README.pl.md) | **Русский**
+
+## О чём речь
+
+Это документированная и распространённая проблема Intel RST, а не единичный случай.
+
+Статья поддержки Intel **000099952** описывает потерю SATA-дисков в Intel RST при определённых условиях:
+диск исчезает из системы, массив переходит в деградированное или отказавшее состояние, и после
+переподключения диск не возвращается. Затрагивает любые машины с Intel RST / VMD.
+<https://www.intel.com/content/www/us/en/support/articles/000099952/technologies.html>
+
+Перечисление дисков, определение состояния массива и запись метаданных при включении выполняет
+**OROM RST, встроенный в BIOS**, а не драйвер Windows. Поэтому действенное исправление может прийти только
+как обновление BIOS от производителя платы; обновление средств Windows его не заменяет.
 
 > Реальный проверенный случай: RAID 5 Intel RST из 4 дисков (том `DATABASE`, 24 ТБ).
 > Прошивка пометила том как **Failed**, один диск остался в состоянии **`Non-RAID`**.
