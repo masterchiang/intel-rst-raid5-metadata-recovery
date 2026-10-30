@@ -1,0 +1,18 @@
+# Never commit disk images or preimages captured from a live array
+*.img
+*.dd
+*preimage*.bin
+*postimage*.bin
+*planned_post*.bin
+*LAST3SECTORS*.bin
+*_ATA_IDENTIFY*.bin
+*_first16MiB.bin
+*_last16MiB.bin
+*_range*.bin
+
+# local run output
+*.log
+__pycache__/
+*.pyc
+.vs/
+.vscode/
