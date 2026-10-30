@@ -25,12 +25,10 @@ Im Datenbereich wurde **kein einziges Byte** verändert.
 - [ ] Dessen Seriennummer sieht aus wie `DEINESERIAL:0` — die echte Nummer mit **`:0`** dahinter
 - [ ] Du hast das Volume nicht initialisiert, gelöscht oder „als normal markiert"
 
-**Die Platte ist nicht defekt. Nur ihr Namensschild (die Metadaten) ist falsch beschriftet.**
-
-Der Controller erkennt Platten über die **exakte Zeichenfolge** ihres Namens. Nach dem Vorfall steht auf
-dem Schild `VLK5JGVY:0`, die Platte selbst meldet `VLK5JGVY` — das passt nie wieder zusammen.
-Umstecken, BIOS-Updates oder neue Treiber helfen nicht, weil das Problem **als Text auf der Platte**
-gespeichert ist.
+Die Platte selbst ist in Ordnung; betroffen ist die Kennung in den Metadaten. Der Controller vergleicht das
+16-Byte-Serienfeld auf exakte Gleichheit. Nach dem Vorfall steht im Datensatz `VLK5JGVY:0`, die Platte
+meldet `VLK5JGVY` — das passt nicht mehr zusammen. Umstecken, BIOS-Updates oder neue Treiber beheben das
+nicht.
 
 ## Symptom
 

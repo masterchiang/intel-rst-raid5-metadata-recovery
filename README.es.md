@@ -25,12 +25,10 @@ En la zona de datos **no se tocó ni un byte**.
 - [ ] Su número de serie parece `TUSERIAL:0`, es decir el real con **`:0`** añadido
 - [ ] No has inicializado, borrado ni «marcado como normal» el volumen
 
-**El disco no está roto: lo que está mal escrito es su etiqueta (los metadatos).**
-
-El controlador identifica los discos comparando el nombre **carácter por carácter**. Tras el incidente
-la etiqueta dice `VLK5JGVY:0` y el disco dice `VLK5JGVY`, así que nunca volverán a coincidir.
-Reconectar cables, actualizar la BIOS o cambiar el driver no sirve: el problema es **texto guardado en
-el disco**.
+El disco está bien; lo que está mal es el identificador de los metadatos. El controlador compara el campo
+de 16 bytes del número de serie exigiendo igualdad exacta. Tras el incidente el registro contiene
+`VLK5JGVY:0` y el disco informa `VLK5JGVY`, de modo que ya no coinciden. Reconectar cables, actualizar la
+BIOS o cambiar el driver no resuelve el problema.
 
 ## Síntoma
 
