@@ -1,6 +1,6 @@
 # Intel RST / IMSM RAID 5：`Non-RAID` に落ちたメンバーディスクを配列へ戻す（`Failed` → `Degraded` → `Rebuild`）
 
-[English](README.md) | [简体中文](README.zh-CN.md) | **日本語** | [Deutsch](README.de.md) | [Español](README.es.md) | [Русский](README.ru.md)
+[简体中文](README.md) | [English](README.en.md) | **日本語** | [Deutsch](README.de.md) | [Español](README.es.md) | [Русский](README.ru.md)
 
 > 4 台構成 Intel RST RAID 5（ボリューム名 `DATABASE`、24 TB）の実例です。
 > ファームウェアがボリュームを **Failed** と判定し、1 台のメンバーが **`Non-RAID`** のままでした。

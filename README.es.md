@@ -1,6 +1,6 @@
 # Intel RST / IMSM RAID 5: devolver al array un miembro degradado a `Non-RAID` (`Failed` → `Degraded` → `Rebuild`)
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | **Español** | [Русский](README.ru.md)
+[简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | **Español** | [Русский](README.ru.md)
 
 > Caso real y verificado: RAID 5 de Intel RST con 4 discos (volumen `DATABASE`, 24 TB).
 > El firmware marcó el volumen como **Failed** y uno de los discos quedó en **`Non-RAID`**.

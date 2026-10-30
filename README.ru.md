@@ -1,6 +1,6 @@
 # Intel RST / IMSM RAID 5: возврат диска из `Non-RAID` в состав массива (`Failed` → `Degraded` → `Rebuild`)
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Español](README.es.md) | **Русский**
+[简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Español](README.es.md) | **Русский**
 
 > Реальный проверенный случай: RAID 5 Intel RST из 4 дисков (том `DATABASE`, 24 ТБ).
 > Прошивка пометила том как **Failed**, один диск остался в состоянии **`Non-RAID`**.
