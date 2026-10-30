@@ -16,6 +16,22 @@ El fallo era **únicamente de metadatos**. Cambiamos **22 bytes** dentro de **un
 4 KiB** al final del disco, y el firmware lo aceptó en el siguiente arranque.
 En la zona de datos **no se tocó ni un byte**.
 
+## ¿Para quién es esta página?
+
+- [ ] Intel RST **RAID 5 con 4 discos**
+- [ ] El volumen aparece como **`Failed`** en la pantalla RST de la BIOS y/o en la app RST de Windows
+- [ ] **Solo uno** de los discos aparece como **`Non-RAID`**, o la app muestra una entrada fantasma de
+      **0 bytes / estado «Perdido»**
+- [ ] Su número de serie parece `TUSERIAL:0`, es decir el real con **`:0`** añadido
+- [ ] No has inicializado, borrado ni «marcado como normal» el volumen
+
+**El disco no está roto: lo que está mal escrito es su etiqueta (los metadatos).**
+
+El controlador identifica los discos comparando el nombre **carácter por carácter**. Tras el incidente
+la etiqueta dice `VLK5JGVY:0` y el disco dice `VLK5JGVY`, así que nunca volverán a coincidir.
+Reconectar cables, actualizar la BIOS o cambiar el driver no sirve: el problema es **texto guardado en
+el disco**.
+
 ## Síntoma
 
 | Dónde | Qué se ve |

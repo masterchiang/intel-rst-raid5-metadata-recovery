@@ -16,6 +16,22 @@ Der Fehler war **rein metadatenseitig**. Wir haben **22 Bytes** in **einem 4-KiB
 der Platte geändert — beim nächsten Start hat die Firmware das Array akzeptiert.
 Im Datenbereich wurde **kein einziges Byte** verändert.
 
+## Für wen diese Seite gedacht ist
+
+- [ ] Intel RST **RAID 5 mit 4 Platten**
+- [ ] Das Volume steht im BIOS-RST-Bildschirm und/oder in der RST-App auf **`Failed`**
+- [ ] **Genau eine** Platte erscheint als **`Non-RAID`**, oder die App zeigt einen Geistereintrag mit
+      **0 Bytes / Status „Verloren"**
+- [ ] Dessen Seriennummer sieht aus wie `DEINESERIAL:0` — die echte Nummer mit **`:0`** dahinter
+- [ ] Du hast das Volume nicht initialisiert, gelöscht oder „als normal markiert"
+
+**Die Platte ist nicht defekt. Nur ihr Namensschild (die Metadaten) ist falsch beschriftet.**
+
+Der Controller erkennt Platten über die **exakte Zeichenfolge** ihres Namens. Nach dem Vorfall steht auf
+dem Schild `VLK5JGVY:0`, die Platte selbst meldet `VLK5JGVY` — das passt nie wieder zusammen.
+Umstecken, BIOS-Updates oder neue Treiber helfen nicht, weil das Problem **als Text auf der Platte**
+gespeichert ist.
+
 ## Symptom
 
 | Ort | Anzeige |
